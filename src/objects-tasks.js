@@ -152,8 +152,22 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  const change = [];
+  const ticketCost = 25;
+  let result = true;
+  queue.forEach((value) => {
+    if (value === ticketCost) {
+      change.push(ticketCost);
+    } else if (change.includes(value - ticketCost)) {
+      const changeIndex = change.find(() => value - ticketCost);
+      change[changeIndex] = 0;
+      change.push(value);
+    } else {
+      result = false;
+    }
+  });
+  return result;
 }
 
 /**
@@ -209,8 +223,8 @@ function getJSON(obj) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 /**
