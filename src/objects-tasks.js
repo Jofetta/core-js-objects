@@ -35,9 +35,10 @@ function shallowCopy(obj) {
  */
 function mergeObjects(objects) {
   const mergedObj = Object.assign({}, ...objects);
-  Object.entries(mergeObjects).forEach(([key, value]) => {
-    if (objects[0][key]) {
-      mergedObj.key = value + objects[0][key];
+
+  Object.entries(mergedObj).forEach(([key, value]) => {
+    if (objects[0][key] && objects[0][key] !== mergedObj[key]) {
+      mergedObj[key] = value + objects[0][key];
     }
   });
   return mergedObj;
@@ -197,7 +198,6 @@ function getJSON(obj) {
  *
  */
 function fromJSON(/* proto, json */) {
-  // return JSON.parse(proto, json);
   throw new Error('Not implemented');
 }
 
